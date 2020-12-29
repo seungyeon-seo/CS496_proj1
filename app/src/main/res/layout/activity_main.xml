@@ -6,13 +6,66 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/tabs"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="29dp"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gallery" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temp" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tabs"
+        android:id="@+id/contents">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#4CAF50"
+            android:gravity="center"
+            android:visibility="visible"
+            android:id="@+id/textContact"
+            android:text="TEXT 1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FF9800"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:id="@+id/textGallery"
+            android:text="TEXT 2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#009688"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:id="@+id/textTemp"
+            android:text="TEXT 3" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
