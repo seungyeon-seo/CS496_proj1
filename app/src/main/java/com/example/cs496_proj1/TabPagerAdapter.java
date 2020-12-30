@@ -4,6 +4,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.cs496_proj1.contacts.ContactFragment;
+
 public class TabPagerAdapter extends FragmentStateAdapter {
     private int tabCount;
 
