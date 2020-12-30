@@ -1,11 +1,10 @@
 package com.example.cs496_proj1;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.TextView;
-
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,10 +35,7 @@ public class MainActivity extends AppCompatActivity {
         }) ;
     }
 
-<<<<<<< HEAD
 
-}
-=======
     private void changeView (int index) {
         TextView textView1 = (TextView) findViewById(R.id.textContact) ;
         TextView textView2 = (TextView) findViewById(R.id.textGallery) ;
@@ -65,4 +61,3 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
->>>>>>> c6a03076441331ee42137a0d4516779eb66b3c29
