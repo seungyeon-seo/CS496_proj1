@@ -31,19 +31,21 @@ public class MainActivity extends AppCompatActivity {
         TabPagerAdapter fgAdapter = new TabPagerAdapter(this, 3);
         viewPager.setAdapter(fgAdapter);
 
-        final List<String> tabElement = Arrays.asList("Contacts","Gallery","Temp");
-        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                TextView textView = new TextView(MainActivity.this);
-                textView.setText(tabElement.get(position));
-                tab.setCustomView(textView);
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            switch (position) {
+                case 0:
+                default:
+                    tab.setText("Contacts");
+                    break;
+                case 1:
+                    tab.setText("Gallery");
+                    break;
+                case 2:
+                    tab.setText("Temp");
+                    break;
             }
+            viewPager.setCurrentItem(0);
         }).attach();
-
-        //pagerAdapter = new TabPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        //viewPager.setAdapter(pagerAdapter);
-        //viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         // TabSelectedListener Initialization
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -63,31 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*
-    private void changeView (int index) {
-        ListView View1 = (ListView) findViewById(R.id.contacts) ;
-        TextView textView2 = (TextView) findViewById(R.id.textGallery) ;
-        TextView textView3 = (TextView) findViewById(R.id.textTemp) ;
-
-        switch (index) {
-            case 0 :
-                View1.setVisibility(View.VISIBLE) ;
-                textView2.setVisibility(View.INVISIBLE) ;
-                textView3.setVisibility(View.INVISIBLE) ;
-                break ;
-            case 1 :
-                View1.setVisibility(View.INVISIBLE) ;
-                textView2.setVisibility(View.VISIBLE) ;
-                textView3.setVisibility(View.INVISIBLE) ;
-                break ;
-            case 2 :
-                View1.setVisibility(View.INVISIBLE) ;
-                textView2.setVisibility(View.INVISIBLE) ;
-                textView3.setVisibility(View.VISIBLE) ;
-                break;
-        }
-    }
-    */
 }
 
 

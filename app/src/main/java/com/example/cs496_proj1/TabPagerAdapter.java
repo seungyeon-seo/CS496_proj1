@@ -14,19 +14,17 @@ public class TabPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public Fragment createFragment(int position) {
+
         switch (position) {
             case 0:
-                ContactFragment fr1 = new ContactFragment();
-                return fr1;
-            case 1:
-                GalleryFragment fr2 = new GalleryFragment();
-                return fr2;
-            case 2:
-                BlankFragment fr3 = new BlankFragment();
-                return fr3;
             default:
-                return null;
+                return ContactFragment.newInstance();
+            case 1:
+                return GalleryFragment.newInstance();
+            case 2:
+                return BlankFragment.newInstance();
         }
+
     }
 
     @Override
