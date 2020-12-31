@@ -7,7 +7,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
-
+import android.widget.ImageView;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
