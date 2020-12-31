@@ -12,9 +12,9 @@ import com.example.cs496_proj1.R;
 
 import java.util.ArrayList;
 
-public class SimpleTextAdapter extends RecyclerView.Adapter<SimpleTextAdapter.ViewHolder> {
+public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
 
-    private ArrayList<String> mData = null ;
+    private ArrayList<Contact> mData;
 
     // ViewHolder: store item view
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -27,22 +27,24 @@ public class SimpleTextAdapter extends RecyclerView.Adapter<SimpleTextAdapter.Vi
     }
 
     // Constructor
-    SimpleTextAdapter(ArrayList<String> list) {
+    ContactAdapter(ArrayList<Contact> list) {
         mData = list ;
     }
 
     @Override
-    public SimpleTextAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
-        SimpleTextAdapter.ViewHolder vh = new SimpleTextAdapter.ViewHolder(v) ;
+    public ContactAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item,
+                                                                parent, false);
+        ContactAdapter.ViewHolder vh = new ContactAdapter.ViewHolder(v) ;
 
         return vh ;
     }
 
     @Override
-    public void onBindViewHolder(SimpleTextAdapter.ViewHolder holder, int position) {
-        String text = mData.get(position) ;
-        holder.textView1.setText(text) ;
+    public void onBindViewHolder(ContactAdapter.ViewHolder holder, int position) {
+        Contact element = mData.get(position) ;
+        holder.textView1.setText("1") ;
+        // holder.oooView.setooo(element);
     }
 
     @Override
