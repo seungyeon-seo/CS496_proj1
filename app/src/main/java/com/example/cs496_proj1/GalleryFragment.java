@@ -1,6 +1,5 @@
 package com.example.cs496_proj1;
 
-import android.Manifest;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -35,11 +34,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class GalleryFragment extends Fragment {
-    private GridView gridview;
+class ImageUnit{
+    Long id;
+    Uri imageUri;
 
+    public ImageUnit(Long id, Uri imageUri) {
+        super();
+        this.id = id;
+        this.imageUri = imageUri;
+    }
+}
+
+public class GalleryFragment extends Fragment {
     public GalleryFragment() {
     }
+
+    private GridView gridview;
 
     public static GalleryFragment newInstance() {
         GalleryFragment fragment = new GalleryFragment();
@@ -49,16 +59,7 @@ public class GalleryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (ContextCompat.checkSelfPermission(Objects.requireNonNull(getActivity()),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            // request the permission
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-        }
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,18 +71,9 @@ public class GalleryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    public static class ImageUnit{
-        Long id;
-        Uri imageUri;
-
-        public ImageUnit(Long id, Uri imageUri) {
-        }
-    }
-
-
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    public List<ImageUnit> LoadImages(){
-        List<ImageUnit> FileList = new ArrayList<>();
+    public ArrayList<ImageUnit> LoadImages(){
+        ArrayList<ImageUnit> FileList = new ArrayList<>();
         String[] projection = {
                 MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.DISPLAY_NAME,
@@ -89,7 +81,7 @@ public class GalleryFragment extends Fragment {
         };
 
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        Cursor cursor = Objects.requireNonNull(getActivity()).getContentResolver().query(uri, projection, null, null, null);
+        Cursor cursor = requireActivity().getContentResolver().query(uri, projection, null, null, null);
 
         while(cursor.moveToNext()){
             Long id = cursor.getLong(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
@@ -129,13 +121,12 @@ public class GalleryFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             if (convertView == null) convertView = inf.inflate((XmlPullParser) context, null);
-            ImageView iv = (ImageView) convertView.findViewById(R.id.tabs);      // tabs가 맞는지 모름
+            ImageView iv = (ImageView) convertView.findViewById(R.id.glide_custom_view_target_tag);      // ??????
             iv.setImageResource(position);// ?
             Glide.with(context)
                     .load(FileList.get(position).imageUri)
                     .centerCrop()
                     .into(iv);
-
 
             return convertView;
         }
