@@ -1,9 +1,9 @@
 package com.example.cs496_proj1.contacts;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,11 +18,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
     // ViewHolder: store item view
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textView1 ;
+        ImageView imageView;
+        TextView nameView, numView;
 
         ViewHolder(View itemView) {
-            super(itemView) ;
-            textView1 = itemView.findViewById(R.id.textView1) ;
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imageView);
+            nameView = itemView.findViewById(R.id.nameTextView);
+            numView = itemView.findViewById(R.id.numTextView);
         }
     }
 
@@ -43,8 +46,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @Override
     public void onBindViewHolder(ContactAdapter.ViewHolder holder, int position) {
         Contact element = mData.get(position) ;
-        holder.textView1.setText("1") ;
-        // holder.oooView.setooo(element);
+        //holder.imageView.setImage???(element.thumnailId);
+        holder.nameView.setText(element.fullName);
+        holder.numView.setText(element.phone);
     }
 
     @Override

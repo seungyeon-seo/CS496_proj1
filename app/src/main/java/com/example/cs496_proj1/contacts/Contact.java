@@ -12,14 +12,13 @@ public class Contact {
         personId = pid;
     }
 
+        /* Useful Functions */
     public boolean isStartWith (String str) {
         return phone.startsWith(str);
     }
-
     public String getMsg() {
         return ("name=" + fullName + ", phone=" + phone);
     }
-
     public void setId(int i) {
         id = i;
     }

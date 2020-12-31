@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
 
         /* Tab variables */
         private ViewPager2 viewPager;
-        TabPagerAdapter pagerAdapter;
+        TabPagerAdapter fgAdapter;
 
         @Override
         protected void onCreate (Bundle savedInstanceState){
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
 
         // ViewPager Initialization
         viewPager = (ViewPager2) findViewById(R.id.pager);
-        TabPagerAdapter fgAdapter = new TabPagerAdapter(this, 3);
+        fgAdapter = new TabPagerAdapter(this, 3);
         viewPager.setAdapter(fgAdapter);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
