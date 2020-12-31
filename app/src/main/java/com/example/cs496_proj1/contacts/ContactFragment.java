@@ -57,13 +57,13 @@ public class ContactFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.scrollToPosition(0);
 
+        // Init contact list
+        contacts = getContacts();
+
         // Set Adatper
         adapter = new ContactAdapter(contacts);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        // Init contact list
-        contacts = getContacts();
 
         return view;
     }
@@ -74,7 +74,8 @@ public class ContactFragment extends Fragment {
         String[] projection = new String[] {
                 ContactsContract.CommonDataKinds.Phone.NUMBER,
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                ContactsContract.CommonDataKinds.Phone.PHOTO_ID
+                ContactsContract.CommonDataKinds.Phone.PHOTO_ID,
+                ContactsContract.CommonDataKinds.Phone._ID
         };
         String sortOrder = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
 
@@ -109,8 +110,7 @@ public class ContactFragment extends Fragment {
 
         if (cursor != null) {
             cursor.close();
-        }
 
-        return contacts;
+        }return contacts;
     }
 }
