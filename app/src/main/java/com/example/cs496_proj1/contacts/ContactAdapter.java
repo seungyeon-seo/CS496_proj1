@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,12 +18,10 @@ import java.util.ArrayList;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
 
     private ArrayList<Contact> mData;
-    private ArrayList<Contact> searchList;
 
     // Constructor
     ContactAdapter(ArrayList<Contact> list) {
         mData = list ;
-        searchList = list;
     }
 
     @Override
@@ -76,39 +73,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         holder.numView.setText(element.phone);
     }
 
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                ArrayList<Contact> filtering = new ArrayList<Contact>();
-                String txt = constraint.toString();
-
-                if (txt.isEmpty()) {
-                    searchList = mData;
-                }
-                else {
-                    for (int i = 0; i < getItemCount(); i++) {
-                        Contact element = mData.get(i);
-                        if (element.fullName.toLowerCase().contains(constraint)
-                                || element.phone.toString().contains(constraint)) {
-                            filtering.add(element);
-                        }
-                    }
-                    if (filtering.isEmpty())
-                        searchList = mData;
-                    else
-                        searchList = filtering;
-                }
-                FilterResults res = new FilterResults();
-                res.values = searchList;
-                return res;
+    public int findText (String text) {
+        for (int i = 0; i < getItemCount(); i++) {
+            Contact element = mData.get(i);
+            if (element.fullName.toLowerCase().contains(text)
+                    || element.phone.toString().contains(text)) {
+                return i;
             }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                searchList = (ArrayList<Contact>)results.values;
-                notifyDataSetChanged();
-            }
-        };
+        }
+        return 0;
     }
 }

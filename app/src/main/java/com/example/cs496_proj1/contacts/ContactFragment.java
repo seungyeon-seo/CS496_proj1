@@ -72,7 +72,8 @@ public class ContactFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+                int pos = adapter.findText(newText);
+                recyclerView.scrollToPosition(pos);
                 return true;
             }
         });
