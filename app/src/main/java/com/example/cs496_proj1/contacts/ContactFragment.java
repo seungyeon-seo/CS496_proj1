@@ -57,7 +57,7 @@ public class ContactFragment extends Fragment {
         // Init contact list
         contacts = getContacts();
 
-        // Set Adatper
+        // Set Adapter
         adapter = new ContactAdapter(contacts);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -77,6 +77,8 @@ public class ContactFragment extends Fragment {
                 return true;
             }
         });
+
+
 
         return view;
     }

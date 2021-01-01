@@ -38,14 +38,27 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         ImageButton callButton;
 
         ViewHolder(View itemView) {
-            // Init Views
+            // Init Views and Button
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             nameView = itemView.findViewById(R.id.nameTextView);
             numView = itemView.findViewById(R.id.numTextView);
-
-            // Init Button info
             callButton = (ImageButton) itemView.findViewById(R.id.callButton);
+
+            // Click event for itemView
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION){
+                        Contact ct = mData.get(pos);
+                        Intent intent = new Intent(Intent.ACTION_EDIT);
+                        intent.setData(Uri.parse(Long.toString(ct.id)));
+                    }
+                }
+            });
+
+            // Click event for button
             callButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
