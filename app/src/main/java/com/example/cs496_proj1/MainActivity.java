@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity
         public int[] grandResults = {-1 , -1};
 
         private ViewPager2 viewPager;
-        TabPagerAdapter pagerAdapter;
+        TabPagerAdapter fgAdapter;
 
         @Override
         protected void onCreate (Bundle savedInstanceState){
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity
     }
 
         public void GetPermission () {
-        ConstraintLayout mLayout = findViewById(R.id.main_layout);
+        LinearLayout mLayout = findViewById(R.id.main_layout);
         int readExternalStoragePermission = ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[0]);
         int readContactPermission = ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[1]);
         grandResults[0] = readExternalStoragePermission;
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,
         @NonNull int[] grandResults){
-        ConstraintLayout mLayout = findViewById(R.id.main_layout);
+        LinearLayout mLayout = findViewById(R.id.main_layout);
         if (requestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
 
             // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
