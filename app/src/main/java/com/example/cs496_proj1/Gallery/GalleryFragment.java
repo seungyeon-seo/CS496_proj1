@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.example.cs496_proj1.MainActivity;
 import com.example.cs496_proj1.R;
 
@@ -44,15 +46,18 @@ public class GalleryFragment extends Fragment {
         return fragment;
     }
 
+    public RequestManager mGlideRequestManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mGlideRequestManager = Glide.with(this);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // mRecyclerView Initialization
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
@@ -66,7 +71,7 @@ public class GalleryFragment extends Fragment {
         FileList = LoadImages();
 
         // Set Adapter
-        adapter = new ImageAdapter(FileList);
+        adapter = new ImageAdapter(FileList, mGlideRequestManager);
         mRecyclerView.setAdapter(adapter);
         //mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -92,7 +97,7 @@ public class GalleryFragment extends Fragment {
         Cursor cursor = requireActivity().getContentResolver().query(uri, projection, null, null, null);
 
         while(cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
+            long id = cursor.getLong(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
             Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
             FileList.add(new ImageUnit(id, imageUri));
         }

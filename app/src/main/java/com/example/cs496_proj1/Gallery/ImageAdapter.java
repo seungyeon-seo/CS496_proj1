@@ -20,15 +20,18 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.example.cs496_proj1.R;
 
 import java.util.ArrayList;
 
 @RequiresApi(api = Build.VERSION_CODES.Q)
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
-    private final Context context = this.context;
+    //private final Context context = ;
     private final ArrayList<ImageUnit> ImgList;
+    public RequestManager mRequestManager;
 
+     // ViewHolder: store item view
     public static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
 
@@ -38,8 +41,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         }
     }
 
-    public ImageAdapter(ArrayList<ImageUnit> ImgList) {
+    // Constructor
+    public ImageAdapter(ArrayList<ImageUnit> ImgList, RequestManager mRequestManager) {
         this.ImgList = ImgList;
+        this.mRequestManager = mRequestManager;
     }
 
     @NonNull
@@ -51,11 +56,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
         ImageUnit photo = ImgList.get(position);
 
-        Glide.with(context)
+        mRequestManager
                 .load(photo.imageUri)
                 .into(holder.image);
 
         holder.image.setImageURI(photo.imageUri);
+
     }
 
     @Override public int getItemCount() {
