@@ -40,13 +40,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
         ViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.image);
-            image.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), ViewImage.class);
-                    v.getContext().startActivity(intent);
-                }
-            });
+
         }
     }
 
@@ -69,7 +63,15 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
                 .load(photo.imageUri)
                 .into(holder.image);
 
-        holder.image.setImageURI(photo.imageUri);
+       // holder.image.setImageURI(photo.imageUri);
+        holder.image.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewImage.class);
+                intent.putExtra("uri", photo.imageUri);
+                v.getContext().startActivity(intent);
+            }
+        });
 
     }
 

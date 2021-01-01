@@ -75,8 +75,6 @@ public class GalleryFragment extends Fragment {
         adapter = new ImageAdapter(FileList, mGlideRequestManager);
         mRecyclerView.setAdapter(adapter);
 
-
-
         return view;
     }
 
