@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CS496_proj1">
-        <activity android:name=".CSCal.BitOperation"></activity>
+        <activity android:name=".Gallery.ViewImage"></activity>
+        <activity android:name=".CSCal.BitOperation" />
         <activity android:name=".CSCal.NumSystem" />
         <activity android:name=".MainActivity">
             <intent-filter>
