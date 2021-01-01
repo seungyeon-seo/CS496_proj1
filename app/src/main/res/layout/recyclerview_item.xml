@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/nameTextView"
-        android:layout_width="150dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
@@ -35,6 +35,16 @@
         android:layout_marginLeft="10dp"
         app:layout_constraintStart_toEndOf="@+id/nameTextView"
         android:gravity="center_vertical"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/callButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/sym_action_call"
+        app:layout_constraintStart_toEndOf="@+id/numTextView"
+        android:layout_marginLeft="10dp"
+        tools:layout_editor_absoluteY="6dp"
         tools:ignore="MissingConstraints" />
 
 

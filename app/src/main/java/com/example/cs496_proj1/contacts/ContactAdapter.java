@@ -1,8 +1,11 @@
 package com.example.cs496_proj1.contacts;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,15 +20,28 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     private ArrayList<Contact> mData;
 
     // ViewHolder: store item view
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.
+            ViewHolder {
         ImageView imageView;
         TextView nameView, numView;
+        ImageButton callButton;
 
         ViewHolder(View itemView) {
+            // Init Views
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             nameView = itemView.findViewById(R.id.nameTextView);
             numView = itemView.findViewById(R.id.numTextView);
+
+            // Init Button
+            callButton = (ImageButton) itemView.findViewById(R.id.callButton);
+            callButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_CALL,
+                                                Uri.parse("tel:" + numView.getText()));
+                    itemView.getContext().startActivity(intent); }
+            });
         }
     }
 

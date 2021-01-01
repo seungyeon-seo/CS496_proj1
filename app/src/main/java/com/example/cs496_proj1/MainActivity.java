@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity
         /* Permission variables */
         private static final int PERMISSIONS_REQUEST_CODE = 100;
         String[] REQUIRED_PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.READ_CONTACTS};
-        public int[] grandResults = {-1 , -1};
+                Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE };
+        public int[] grandResults = {-1 , -1, -1};
 
         /* Tab variables */
         private ViewPager2 viewPager;
@@ -84,20 +84,24 @@ public class MainActivity extends AppCompatActivity
         LinearLayout mLayout = findViewById(R.id.main_layout);
         int readExternalStoragePermission = ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[0]);
         int readContactPermission = ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[1]);
+        int readCallPermission = ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[2]);
         grandResults[0] = readExternalStoragePermission;
         grandResults[1] = readContactPermission;
+        grandResults[2] = readCallPermission;
 
         if (!(grandResults[0] == PackageManager.PERMISSION_GRANTED
-                && grandResults[1] == PackageManager.PERMISSION_GRANTED)) {
+                && grandResults[1] == PackageManager.PERMISSION_GRANTED
+                && grandResults[2] == PackageManager.PERMISSION_GRANTED)) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
-                    || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {
-                Snackbar.make(mLayout, "이 앱을 실행하려면 외부 저장소 및 연락처 접근 권한이 필요합니다.",
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[2])) {
+                Snackbar.make(mLayout, "이 앱을 실행하려면 외부 저장소, 연락처, 전화 접근 권한이 필요합니다.",
                         Snackbar.LENGTH_INDEFINITE).setAction("확인", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View view) {
-                        // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
+                        // 3-3. 사용자에게 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                         ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
                                 PERMISSIONS_REQUEST_CODE);
                     }
@@ -131,7 +135,8 @@ public class MainActivity extends AppCompatActivity
             if (!check_result) {
                 // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
-                        || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {
+                        || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])
+                        || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[2])) {
 
                     // 사용자가 거부만 선택한 경우에는 앱을 다시 실행하여 허용을 선택하면 앱을 사용할 수 있습니다.
                     Snackbar.make(mLayout, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요. ",
