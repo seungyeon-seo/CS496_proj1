@@ -1,9 +1,13 @@
 package com.example.cs496_proj1;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.cs496_proj1.CSCal.CSCalFragment;
 import com.example.cs496_proj1.Gallery.GalleryFragment;
 
 public class TabPagerAdapter extends FragmentStateAdapter {
@@ -14,6 +18,7 @@ public class TabPagerAdapter extends FragmentStateAdapter {
         tabCount = count;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public Fragment createFragment(int position) {
 
@@ -24,7 +29,7 @@ public class TabPagerAdapter extends FragmentStateAdapter {
             case 1:
                 return GalleryFragment.newInstance();
             case 2:
-                return BlankFragment.newInstance();
+                return CSCalFragment.newInstance();
         }
 
     }

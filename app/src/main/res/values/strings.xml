@@ -2,4 +2,7 @@
     <string name="app_name">CS496_proj1</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="numeral_system">Numeral System</string>
+    <string name="bitwise_operation">Bitwise Operation</string>
+    <string name="welcome_to_cs_calculator">Welcome to CS_Calculator !</string>
 </resources>

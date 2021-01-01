@@ -25,6 +25,7 @@ import com.bumptech.glide.RequestManager;
 import com.example.cs496_proj1.MainActivity;
 import com.example.cs496_proj1.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -73,7 +74,6 @@ public class GalleryFragment extends Fragment {
         // Set Adapter
         adapter = new ImageAdapter(FileList, mGlideRequestManager);
         mRecyclerView.setAdapter(adapter);
-        //mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         return view;
     }
@@ -92,7 +92,6 @@ public class GalleryFragment extends Fragment {
                 MediaStore.Images.Media.DATE_TAKEN
         };
 
-        //Arrays.sort(projection, Collections.reverseOrder());
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         Cursor cursor = requireActivity().getContentResolver().query(uri, projection, null, null, null);
 
@@ -102,6 +101,8 @@ public class GalleryFragment extends Fragment {
             FileList.add(new ImageUnit(id, imageUri));
         }
         cursor.close();
+
+        //Collections.sort(FileList)
         return FileList;
     }
 }

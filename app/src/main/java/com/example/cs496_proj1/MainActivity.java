@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
                     tab.setText("Gallery");
                     break;
                 case 2:
-                    tab.setText("Temp");
+                    tab.setText("CS_Cal");
                     break;
             }
             viewPager.setCurrentItem(0);
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity
         });
 
         GetPermission();
-        //System.out.println(grandResults);
         onRequestPermissionsResult(PERMISSIONS_REQUEST_CODE, REQUIRED_PERMISSIONS, grandResults);
     }
 
