@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
         private static final int PERMISSIONS_REQUEST_CODE = 100;
         String[] REQUIRED_PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE,
-                Manifest.permission.READ_CONTACTS, Manifest.permission.CAMERA};
+                Manifest.permission.CAMERA};
         public int[] grandResults = {-1 , -1, -1, -1};
 
         private ViewPager2 viewPager;

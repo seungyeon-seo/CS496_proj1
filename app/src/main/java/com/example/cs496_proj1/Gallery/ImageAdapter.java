@@ -32,7 +32,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     public RequestManager mRequestManager;
    // Context mcontext;
 
-
      // ViewHolder: store item view
     public static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
@@ -73,7 +72,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
                 v.getContext().startActivity(intent);
             }
         });
-
     }
 
     @Override public int getItemCount() {

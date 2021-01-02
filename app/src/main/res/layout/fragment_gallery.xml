@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_y="500pt"
+    android:id="@+id/framelayout"
     tools:context=".Gallery.GalleryFragment">
 
     <androidx.recyclerview.widget.RecyclerView

@@ -10,10 +10,18 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,21 +36,29 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.example.cs496_proj1.MainActivity;
 import com.example.cs496_proj1.R;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 
 
 @RequiresApi(api = Build.VERSION_CODES.Q)
 public class GalleryFragment extends Fragment {
+
     public ArrayList<ImageUnit> FileList;
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
     ImageAdapter adapter;
     //Context context = this.getContext();
-    int REQUEST_IMAGE_CAPTURE = 10;
+    int CAPTURE_PHOTO = 10;
+    int PICK_IMAGE = 11;
     ImageView imageview;
 
     public GalleryFragment() {
@@ -67,6 +83,11 @@ public class GalleryFragment extends Fragment {
 
         // mRecyclerView Initialization
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
+        return view;
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         imageview = (ImageView) view.findViewById(R.id.image_view);
 
@@ -74,8 +95,7 @@ public class GalleryFragment extends Fragment {
         ImageButton camera = (ImageButton) view.findViewById(R.id.camera);
         camera.setOnClickListener(v ->{
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            //Fragment frag = this;
-            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+            startActivityForResult(intent, CAPTURE_PHOTO);
         });
 
         // Set LayoutManager
@@ -89,16 +109,10 @@ public class GalleryFragment extends Fragment {
         // Set Adapter
         adapter = new ImageAdapter(FileList, mGlideRequestManager);
         mRecyclerView.setAdapter(adapter);
-
-        return view;
     }
 
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        super.onViewCreated(view, savedInstanceState);
-    }
-
+    // Load photos and make FileList of them
     @RequiresApi(api = Build.VERSION_CODES.Q)
-
     public ArrayList<ImageUnit> LoadImages(){
         ArrayList<ImageUnit> FileList = new ArrayList<>();
         String[] projection = {
@@ -113,7 +127,7 @@ public class GalleryFragment extends Fragment {
         while(cursor.moveToNext()){
             long id = cursor.getLong(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
             Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-            FileList.add(new ImageUnit(id, imageUri));
+            FileList.add(new ImageUnit(imageUri));
         }
         cursor.close();
 
@@ -121,16 +135,34 @@ public class GalleryFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestcode, int resultcode, Intent data){
-        super.onActivityResult(requestcode, resultcode, data);
-        if (resultcode == Activity.RESULT_OK){
-            if (requestcode == REQUEST_IMAGE_CAPTURE){
-                Bundle extras = data.getExtras();
-                Bitmap imagebitmap = (Bitmap) extras.get(String.valueOf(data));
-                imageview.setImageBitmap(imagebitmap);
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK){
+            if (requestCode == PICK_IMAGE){
+                @Nullable
+                Uri imageUri = data.getData();
+                FileList.add(new ImageUnit(imageUri));
+            }
+            if (requestCode == CAPTURE_PHOTO){
+                Bundle bundle = data.getExtras();
+                Bitmap bitmap = (Bitmap) bundle.get("data");
+                Uri ChangedUri = BitmapToUri(this.requireContext(), bitmap);
+                //FileList.add(new ImageUnit(ChangedUri));
             }
         }
+        refreshFragment(this, getActivity().getSupportFragmentManager());
     }
 
+    public Uri BitmapToUri(Context context, Bitmap bitmap){
+         OutputStream bytes = new ByteArrayOutputStream();
+         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title", null);
+         return Uri.parse(path);
+    }
+
+    public void refreshFragment(Fragment fragment, FragmentManager fragmentmanager){
+        FragmentTransaction ft = fragmentmanager.beginTransaction();
+        ft.detach(fragment).attach(fragment).commit();
+    }
 
 }

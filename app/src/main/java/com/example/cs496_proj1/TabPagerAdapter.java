@@ -31,7 +31,6 @@ public class TabPagerAdapter extends FragmentStateAdapter {
             case 2:
                 return CSCalFragment.newInstance();
         }
-
     }
 
     @Override
