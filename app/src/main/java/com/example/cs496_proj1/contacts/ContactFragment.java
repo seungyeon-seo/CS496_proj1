@@ -1,5 +1,6 @@
 package com.example.cs496_proj1.contacts;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,12 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.SearchView;
 
 import com.example.cs496_proj1.R;
 
@@ -22,6 +24,7 @@ import java.util.LinkedHashSet;
 
 public class ContactFragment extends Fragment {
     public ArrayList<Contact> contacts;
+    private ImageButton addButton;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private ContactAdapter adapter;
@@ -78,6 +81,16 @@ public class ContactFragment extends Fragment {
             }
         });
 
+        // Init addButton
+        ImageButton addButton = (ImageButton) view.findViewById(R.id.addButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_INSERT);
+                intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+                view.getContext().startActivity(intent);
+            }
+        });
 
 
         return view;
@@ -127,7 +140,7 @@ public class ContactFragment extends Fragment {
 
         if (cursor != null) {
             cursor.close();
-
-        }return contacts;
+        }
+        return contacts;
     }
 }

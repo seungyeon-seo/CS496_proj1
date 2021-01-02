@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_y="500pt"
-    tools:context=".contacts.ContactFragment">
+    android:background="#FFFFFF"
+    tools:context="contacts.ContactFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
@@ -16,8 +16,24 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="55dp"
         android:scrollbars="horizontal" />
 
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/addButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|left"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="635dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/purple_add"
+        android:scaleType="fitCenter"
+        android:padding="0sp"
+        android:background="#00000000"
+        android:visibility="visible"
+        tools:ignore="ContentDescription,RtlHardcoded" />
+
+</FrameLayout>
