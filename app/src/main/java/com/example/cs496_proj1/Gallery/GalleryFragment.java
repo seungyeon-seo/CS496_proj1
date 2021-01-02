@@ -1,12 +1,16 @@
 package com.example.cs496_proj1.Gallery;
 
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -38,6 +42,8 @@ public class GalleryFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     ImageAdapter adapter;
     //Context context = this.getContext();
+    int REQUEST_IMAGE_CAPTURE = 10;
+    ImageView imageview;
 
     public GalleryFragment() {
     }
@@ -62,6 +68,15 @@ public class GalleryFragment extends Fragment {
         // mRecyclerView Initialization
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        imageview = (ImageView) view.findViewById(R.id.image_view);
+
+        // Camera Button
+        ImageButton camera = (ImageButton) view.findViewById(R.id.camera);
+        camera.setOnClickListener(v ->{
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            //Fragment frag = this;
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        });
 
         // Set LayoutManager
         layoutManager = new GridLayoutManager(requireContext(), 3);
@@ -102,7 +117,20 @@ public class GalleryFragment extends Fragment {
         }
         cursor.close();
 
-        //Collections.sort(FileList)
         return FileList;
     }
+
+    @Override
+    public void onActivityResult(int requestcode, int resultcode, Intent data){
+        super.onActivityResult(requestcode, resultcode, data);
+        if (resultcode == Activity.RESULT_OK){
+            if (requestcode == REQUEST_IMAGE_CAPTURE){
+                Bundle extras = data.getExtras();
+                Bitmap imagebitmap = (Bitmap) extras.get(String.valueOf(data));
+                imageview.setImageBitmap(imagebitmap);
+            }
+        }
+    }
+
+
 }
