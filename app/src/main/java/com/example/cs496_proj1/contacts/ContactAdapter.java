@@ -2,6 +2,7 @@ package com.example.cs496_proj1.contacts;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +53,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                     int pos = getAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION){
                         Contact ct = mData.get(pos);
-                        Intent intent = new Intent(Intent.ACTION_EDIT);
-                        intent.setData(Uri.parse(Long.toString(ct.id)));
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(ContactsContract.Contacts.getLookupUri(ct.id, ct.lookup));
+                        itemView.getContext().startActivity(intent);
                     }
                 }
             });

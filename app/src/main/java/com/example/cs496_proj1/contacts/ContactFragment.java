@@ -90,7 +90,8 @@ public class ContactFragment extends Fragment {
                 ContactsContract.CommonDataKinds.Phone.NUMBER,
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
                 ContactsContract.CommonDataKinds.Phone.PHOTO_ID,
-                ContactsContract.CommonDataKinds.Phone._ID
+                ContactsContract.CommonDataKinds.Phone._ID,
+                ContactsContract.CommonDataKinds.Phone.LOOKUP_KEY
         };
         String sortOrder = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
 
@@ -107,8 +108,9 @@ public class ContactFragment extends Fragment {
                 String fullName = cursor.getString(1);
                 long photo_id = cursor.getLong(2);
                 long person = cursor.getLong(3);
+                String lookup = cursor.getString(4);
 
-                Contact contact = new Contact(phone, fullName, photo_id, person);
+                Contact contact = new Contact(phone, fullName, photo_id, person, lookup);
 
                 if (contact.isStartWith("01")) {
                     hasList.add(contact);
