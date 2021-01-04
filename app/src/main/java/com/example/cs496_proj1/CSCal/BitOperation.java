@@ -175,26 +175,31 @@ public class BitOperation extends AppCompatActivity {
     }
 
     private void calculate () {
-        int op1 = Integer.parseInt(operand[0]);
-        int op2 = Integer.parseInt(operand[1]);
+        int op1 = Integer.parseInt(operand[0], 2);
+        int op2;
         int result;
 
         if (operator == AND) {
+            op2 = Integer.parseInt(operand[1], 2);
             result = op1 & op2;
         }
         else if (operator == OR) {
+            op2  = Integer.parseInt(operand[1], 2);
             result = op1 | op2;
         }
         else if (operator == XOR) {
+            op2  = Integer.parseInt(operand[1], 2);
             result = op1 ^ op2;
         }
         else if (operator == NOT) {
             result = ~op1;
         }
         else if (operator == LEFT) {
+            op2 = Integer.parseInt(operand[1]);
             result = op1 << op2;
         }
         else if (operator == RIGHT){
+            op2 = Integer.parseInt(operand[1]);
             result = op1 >> op2;
         }
         else {
@@ -209,10 +214,12 @@ public class BitOperation extends AppCompatActivity {
 
     private void setOperand (String num) {
         if (operator != -1) {
-            operand[1] += num;
+            if (operand[1] == "0") operand[1] = num;
+            else operand[1] += num;
         }
         else {
-            operand[0] += num;
+            if (operand[0] == "0") operand[0] = num;
+            else operand[0] += num;
         }
     }
 
