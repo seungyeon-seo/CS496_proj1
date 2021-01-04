@@ -99,12 +99,13 @@ public class ContactFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onActivityResult(int requestcode, int resultcode, Intent data) {
+    public Fragment activityResult(int requestcode, int resultcode, Intent data) {
         super.onActivityResult(requestcode, resultcode, data);
         if (requestcode == 0) {
             refreshFragment(this, getActivity().getSupportFragmentManager());
+            adapter.notifyDataSetChanged();
         }
+        return this;
     }
 
     private void refreshFragment(Fragment fragment, FragmentManager fragmentmanager){
