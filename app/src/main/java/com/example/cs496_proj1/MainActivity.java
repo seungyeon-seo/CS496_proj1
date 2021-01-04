@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity
 
         // ViewPager Initialization
         viewPager = (ViewPager2) findViewById(R.id.pager);
-        TabPagerAdapter fgAdapter = new TabPagerAdapter(this, 3);
+        fgAdapter = new TabPagerAdapter(this, 3);
         viewPager.setAdapter(fgAdapter);
 
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        int i = 0;
         viewPager.setAdapter(fgAdapter);
     }
 
@@ -107,7 +108,8 @@ public class MainActivity extends AppCompatActivity
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
                     || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])
-                    || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[2])) {
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[2])
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[3])) {
                 Snackbar.make(mLayout, "이 앱을 실행하려면 외부 저장소, 연락처, 전화 접근 권한이 필요합니다.",
                         Snackbar.LENGTH_INDEFINITE).setAction("확인", new View.OnClickListener() {
                     @Override

@@ -27,7 +27,6 @@ import java.util.LinkedHashSet;
 public class ContactFragment extends Fragment {
     View view;
     public ArrayList<Contact> contacts;
-    private ImageButton addButton;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private ContactAdapter adapter;
@@ -99,14 +98,15 @@ public class ContactFragment extends Fragment {
         return view;
     }
 
-    public Fragment activityResult(int requestcode, int resultcode, Intent data) {
-        super.onActivityResult(requestcode, resultcode, data);
-        if (requestcode == 0) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
             refreshFragment(this, getActivity().getSupportFragmentManager());
             adapter.notifyDataSetChanged();
         }
-        return this;
     }
+
 
     private void refreshFragment(Fragment fragment, FragmentManager fragmentmanager){
         FragmentTransaction ft = fragmentmanager.beginTransaction();

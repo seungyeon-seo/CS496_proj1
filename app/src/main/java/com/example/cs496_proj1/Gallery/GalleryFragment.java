@@ -40,10 +40,9 @@ public class GalleryFragment extends Fragment {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
     ImageAdapter adapter;
-    //Context context = this.getContext();
-    int CAPTURE_PHOTO = 10;
-    int PICK_IMAGE = 11;
+    int CAPTURE_PHOTO = 10, PICK_IMAGE = 11;
     ImageView imageview;
+    public RequestManager mGlideRequestManager;
 
     public GalleryFragment() {
     }
@@ -53,7 +52,6 @@ public class GalleryFragment extends Fragment {
         return fragment;
     }
 
-    public RequestManager mGlideRequestManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

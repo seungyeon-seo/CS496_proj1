@@ -68,6 +68,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_CALL,
                                                 Uri.parse("tel:" + numView.getText()));
+                    itemView.getContext().startActivity(intent);
                 }
             });
         }
