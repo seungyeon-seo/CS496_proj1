@@ -29,7 +29,6 @@ import com.bumptech.glide.RequestManager;
 import com.example.cs496_proj1.R;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 
@@ -136,9 +135,9 @@ public class GalleryFragment extends Fragment {
     }
 
     public Uri BitmapToUri(Context context, Bitmap bitmap){
-         OutputStream bytes = new ByteArrayOutputStream();
+         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
          bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title", null);
+         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title"+System.currentTimeMillis(), null);
          return Uri.parse(path);
     }
 
