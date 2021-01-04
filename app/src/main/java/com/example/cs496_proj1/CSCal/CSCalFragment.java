@@ -17,7 +17,6 @@ import com.example.cs496_proj1.R;
 public class CSCalFragment extends Fragment {
 
     public CSCalFragment() {
-        // Required empty public constructor
     }
 
     public static CSCalFragment newInstance() {
