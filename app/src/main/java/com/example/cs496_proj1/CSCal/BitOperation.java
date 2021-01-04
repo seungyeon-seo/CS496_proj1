@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cs496_proj1.R;
 
 public class BitOperation extends AppCompatActivity {
-    private Button andOp, orOp, xorOp, notOp, leftOp, rightOp, equalOp;
+    private Button andOp, orOp, xorOp, notOp, leftOp, rightOp, equalOp, clear;
     private int AND=1, OR=2, XOR=3, NOT=4, LEFT=5, RIGHT=6;
     private Button zero, one, two, three, four, five, six, seven, eight, nine;
     private EditText input, output;
@@ -30,6 +30,7 @@ public class BitOperation extends AppCompatActivity {
         leftOp = (Button) findViewById(R.id.leftOp);
         rightOp = (Button) findViewById(R.id.rightOp);
         equalOp = (Button) findViewById(R.id.equalOp);
+        clear = (Button) findViewById(R.id.clear);
         zero = (Button) findViewById(R.id.zero);
         one = (Button) findViewById(R.id.one);
         two = (Button) findViewById(R.id.two);
@@ -96,6 +97,17 @@ public class BitOperation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 calculate();
+            }
+        });
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                input.setText(null);
+                output.setText(null);
+                operator = -1;
+                operand = new String[2];
+                operand[0] = new String("0");
+                operand[1] = new String ("0");
             }
         });
         zero.setOnClickListener(new View.OnClickListener() {
@@ -214,11 +226,11 @@ public class BitOperation extends AppCompatActivity {
 
     private void setOperand (String num) {
         if (operator != -1) {
-            if (operand[1] == "0") operand[1] = num;
+            if (operand[1].equals("0")) operand[1] = num;
             else operand[1] += num;
         }
         else {
-            if (operand[0] == "0") operand[0] = num;
+            if (operand[0].equals("0")) operand[0] = num;
             else operand[0] += num;
         }
     }
