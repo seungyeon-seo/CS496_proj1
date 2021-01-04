@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -18,20 +19,20 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity
-    implements ActivityCompat.OnRequestPermissionsResultCallback
+    implements ActivityCompat.OnRequestPermissionsResultCallback {
+    /* Permission variables */
+    private static final int PERMISSIONS_REQUEST_CODE = 100;
+    String[] REQUIRED_PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE,
+            Manifest.permission.CAMERA};
+    public int[] grandResults = {-1, -1, -1, -1};
 
-    {
-        private static final int PERMISSIONS_REQUEST_CODE = 100;
-        String[] REQUIRED_PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.READ_CONTACTS, Manifest.permission.CALL_PHONE,
-                Manifest.permission.CAMERA};
-        public int[] grandResults = {-1 , -1, -1, -1};
+    /* Tab variables */
+    private ViewPager2 viewPager;
+    TabPagerAdapter fgAdapter;
 
-        private ViewPager2 viewPager;
-        TabPagerAdapter fgAdapter;
-
-        @Override
-        protected void onCreate (Bundle savedInstanceState){
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -75,11 +76,18 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        // Require Permission
         GetPermission();
         onRequestPermissionsResult(PERMISSIONS_REQUEST_CODE, REQUIRED_PERMISSIONS, grandResults);
     }
 
-        public void GetPermission () {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        viewPager.setAdapter(fgAdapter);
+    }
+
+    public void GetPermission() {
         LinearLayout mLayout = findViewById(R.id.main_layout);
         int readExternalStoragePermission = ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[0]);
         int readContactPermission = ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[1]);
@@ -96,14 +104,15 @@ public class MainActivity extends AppCompatActivity
                 && grandResults[2] == PackageManager.PERMISSION_GRANTED
                 && grandResults[3] == PackageManager.PERMISSION_GRANTED)) {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
-                    || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {
-                Snackbar.make(mLayout, "이 앱을 실행하려면 외부 저장소, 연락처, 전화, 카메라 접근 권한이 필요합니다.",
-                        Snackbar.LENGTH_INDEFINITE).setAction("확인", new View.OnClickListener() {
 
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[2])) {
+                Snackbar.make(mLayout, "이 앱을 실행하려면 외부 저장소, 연락처, 전화 접근 권한이 필요합니다.",
+                        Snackbar.LENGTH_INDEFINITE).setAction("확인", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // 3-3. 사용자게에 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
+                        // 3-3. 사용자에게 퍼미션 요청을 합니다. 요청 결과는 onRequestPermissionResult에서 수신됩니다.
                         ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
                                 PERMISSIONS_REQUEST_CODE);
                     }
@@ -117,9 +126,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-        @Override
-        public void onRequestPermissionsResult ( int requestCode, @NonNull String[] permissions,
-        @NonNull int[] grandResults){
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grandResults) {
         LinearLayout mLayout = findViewById(R.id.main_layout);
         if (requestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
 
@@ -144,7 +153,6 @@ public class MainActivity extends AppCompatActivity
                     // 사용자가 거부만 선택한 경우에는 앱을 다시 실행하여 허용을 선택하면 앱을 사용할 수 있습니다.
                     Snackbar.make(mLayout, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요. ",
                             Snackbar.LENGTH_INDEFINITE).setAction("확인", new View.OnClickListener() {
-
                         @Override
                         public void onClick(View view) {
                             finish();
@@ -154,7 +162,6 @@ public class MainActivity extends AppCompatActivity
                     // “다시 묻지 않음”을 사용자가 체크하고 거부를 선택한 경우에는 설정(앱 정보)에서 퍼미션을 허용해야 앱을 사용할 수 있습니다.
                     Snackbar.make(mLayout, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ",
                             Snackbar.LENGTH_INDEFINITE).setAction("확인", new View.OnClickListener() {
-
                         @Override
                         public void onClick(View view) {
                             finish();
@@ -164,10 +171,4 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-
+}

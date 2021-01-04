@@ -9,6 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.cs496_proj1.CSCal.CSCalFragment;
 import com.example.cs496_proj1.Gallery.GalleryFragment;
+import com.example.cs496_proj1.contacts.ContactFragment;
 
 public class TabPagerAdapter extends FragmentStateAdapter {
     private int tabCount;
