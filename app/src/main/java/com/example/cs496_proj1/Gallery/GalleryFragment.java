@@ -6,47 +6,31 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.example.cs496_proj1.MainActivity;
 import com.example.cs496_proj1.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
 
 
 @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -83,11 +67,6 @@ public class GalleryFragment extends Fragment {
 
         // mRecyclerView Initialization
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
-        return view;
-    }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
-        super.onViewCreated(view, savedInstanceState);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         imageview = (ImageView) view.findViewById(R.id.image_view);
 
@@ -103,12 +82,14 @@ public class GalleryFragment extends Fragment {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.scrollToPosition(0);
 
-        // Init contact list
+        // Init image list
         FileList = LoadImages();
 
         // Set Adapter
         adapter = new ImageAdapter(FileList, mGlideRequestManager);
         mRecyclerView.setAdapter(adapter);
+
+        return view;
     }
 
     // Load photos and make FileList of them
@@ -147,10 +128,11 @@ public class GalleryFragment extends Fragment {
                 Bundle bundle = data.getExtras();
                 Bitmap bitmap = (Bitmap) bundle.get("data");
                 Uri ChangedUri = BitmapToUri(this.requireContext(), bitmap);
-                //FileList.add(new ImageUnit(ChangedUri));
+                FileList.add(new ImageUnit(ChangedUri));
             }
+            refreshFragment(this, getActivity().getSupportFragmentManager());
+            adapter.notifyDataSetChanged();
         }
-        refreshFragment(this, getActivity().getSupportFragmentManager());
     }
 
     public Uri BitmapToUri(Context context, Bitmap bitmap){
