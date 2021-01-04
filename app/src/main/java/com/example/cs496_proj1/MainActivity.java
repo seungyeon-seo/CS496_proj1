@@ -86,9 +86,17 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(fgAdapter);
     }
 
+    public void notifyViewPager() {
+        ///viewPager.getAdapter().notifyDataSetChanged();
+        fgAdapter.notifyDataSetChanged();
+        viewPager.setAdapter(fgAdapter);
+        viewPager.setCurrentItem(1);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         //viewPager.setAdapter(fgAdapter);
     }
 

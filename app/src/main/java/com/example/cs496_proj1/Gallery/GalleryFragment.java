@@ -38,7 +38,7 @@ public class GalleryFragment extends Fragment {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager layoutManager;
     ImageAdapter adapter;
-    int CAPTURE_PHOTO = 10, PICK_IMAGE = 11;
+    int CAPTURE_PHOTO = 10;
     ImageView imageview;
     public RequestManager mGlideRequestManager;
 
@@ -124,6 +124,8 @@ public class GalleryFragment extends Fragment {
             }
             refreshFragment(this, getActivity().getSupportFragmentManager());
             adapter.notifyDataSetChanged();
+            //MainActivity main = (MainActivity) getActivity();
+            //main.notifyViewPager();
         }
     }
 
