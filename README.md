@@ -8,5 +8,6 @@ You can run this project by connecting a virtual machine or physical device in A
 ### Known Bugs
 - If you use the camera continuously in the Gallery tab, the image list is not immediately updated. You have to switch to another tab and return to see your new photo.
 - On first run, this application asks you for some privileges. After allowing the permission, you need to rerun the application.
+- Also, if you take a picture with the camera launched from the Gallery tab, resolution is lower than the picture taken using the device's camera app.
 
 This program is the first project of KAIST's madcamp. Since this is our first android application, it may not be perfect and efficient.
