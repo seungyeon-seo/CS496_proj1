@@ -1,5 +1,6 @@
 package com.example.cs496_proj1.contacts;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cs496_proj1.MainActivity;
 import com.example.cs496_proj1.R;
 
 import java.util.ArrayList;
@@ -97,17 +99,16 @@ public class ContactFragment extends Fragment {
 
         return view;
     }
-    /*
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0) {
-            refreshFragment(this, getActivity().getSupportFragmentManager());
-            adapter.notifyDataSetChanged();
-        }
+        MainActivity main = (MainActivity) getActivity();
+        main.setViewPager();
     }
-    */
 
+    /*
     public Fragment activityResult(int requestcode, int resultcode, Intent data) {
         super.onActivityResult(requestcode, resultcode, data);
         if (requestcode == 0) {
@@ -116,11 +117,14 @@ public class ContactFragment extends Fragment {
         }
         return this;
     }
+    */
+
 
     private void refreshFragment(Fragment fragment, FragmentManager fragmentmanager){
         FragmentTransaction ft = fragmentmanager.beginTransaction();
         ft.detach(fragment).attach(fragment).commit();
-        //fragmentmanager.saveFragmentInstanceState(fragment);
+        Activity main = getActivity();
+        //viewPager.setAdapter(fgAdapter);
     }
 
     private ArrayList<Contact> getContacts() {

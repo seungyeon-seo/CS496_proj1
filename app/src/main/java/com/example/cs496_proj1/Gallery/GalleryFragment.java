@@ -115,8 +115,8 @@ public class GalleryFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK){
-            if (requestCode == CAPTURE_PHOTO){
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CAPTURE_PHOTO) {
                 Bundle bundle = data.getExtras();
                 Bitmap bitmap = (Bitmap) bundle.get("data");
                 Uri ChangedUri = BitmapToUri(this.requireContext(), bitmap);
@@ -144,10 +144,10 @@ public class GalleryFragment extends Fragment {
     }*/
 
     public Uri BitmapToUri(Context context, Bitmap bitmap){
-         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title" + System.currentTimeMillis(), null);
-         return Uri.parse(path);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title"+System.currentTimeMillis(), null);
+        return Uri.parse(path);
     }
 
     public void refreshFragment(Fragment fragment, FragmentManager fragmentmanager){
