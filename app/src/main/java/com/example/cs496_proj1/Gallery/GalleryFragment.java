@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -29,7 +28,6 @@ import com.bumptech.glide.RequestManager;
 import com.example.cs496_proj1.R;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 
@@ -113,15 +111,11 @@ public class GalleryFragment extends Fragment {
         return FileList;
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK){
-            if (requestCode == PICK_IMAGE){
-                @Nullable
-                Uri imageUri = data.getData();
-                FileList.add(new ImageUnit(imageUri));
-            }
             if (requestCode == CAPTURE_PHOTO){
                 Bundle bundle = data.getExtras();
                 Bitmap bitmap = (Bitmap) bundle.get("data");
@@ -133,10 +127,26 @@ public class GalleryFragment extends Fragment {
         }
     }
 
+    /*
+    public Fragment activityResult(int requestcode, int resultcode, Intent data){
+        super.onActivityResult(requestcode, resultcode, data);
+        if (resultcode == Activity.RESULT_OK){
+            if (requestcode == CAPTURE_PHOTO){
+                Bundle bundle = data.getExtras();
+                Bitmap bitmap = (Bitmap) bundle.get("data");
+                Uri ChangedUri = BitmapToUri(this.requireContext(), bitmap);
+                FileList.add(new ImageUnit(ChangedUri));
+            }
+            refreshFragment(this, getActivity().getSupportFragmentManager());
+            adapter.notifyDataSetChanged();
+        }
+        return this;
+    }*/
+
     public Uri BitmapToUri(Context context, Bitmap bitmap){
-         OutputStream bytes = new ByteArrayOutputStream();
+         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
          bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title", null);
+         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title" + System.currentTimeMillis(), null);
          return Uri.parse(path);
     }
 

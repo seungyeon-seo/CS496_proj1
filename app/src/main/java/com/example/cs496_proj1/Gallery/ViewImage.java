@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.cs496_proj1.R;
 import com.github.chrisbanes.photoview.PhotoView;
@@ -22,8 +21,5 @@ public class ViewImage extends AppCompatActivity {
         String s = extras.getString("uri");
         Uri myUri = Uri.parse(s);
         photoView.setImageURI(myUri);
-
-
-
     }
 }

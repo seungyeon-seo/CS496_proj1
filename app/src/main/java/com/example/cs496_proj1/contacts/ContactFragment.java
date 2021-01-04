@@ -97,7 +97,7 @@ public class ContactFragment extends Fragment {
 
         return view;
     }
-
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -106,11 +106,21 @@ public class ContactFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
     }
+    */
 
+    public Fragment activityResult(int requestcode, int resultcode, Intent data) {
+        super.onActivityResult(requestcode, resultcode, data);
+        if (requestcode == 0) {
+            refreshFragment(this, getActivity().getSupportFragmentManager());
+            adapter.notifyDataSetChanged();
+        }
+        return this;
+    }
 
     private void refreshFragment(Fragment fragment, FragmentManager fragmentmanager){
         FragmentTransaction ft = fragmentmanager.beginTransaction();
         ft.detach(fragment).attach(fragment).commit();
+        //fragmentmanager.saveFragmentInstanceState(fragment);
     }
 
     private ArrayList<Contact> getContacts() {
