@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 public class ContactFragment extends Fragment {
+    View view;
     public ArrayList<Contact> contacts;
     private ImageButton addButton;
     private RecyclerView recyclerView;
@@ -48,7 +51,7 @@ public class ContactFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // RecyclerView Initialization
-        View view = inflater.inflate(R.layout.fragment_contact, container, false);
+        view = inflater.inflate(R.layout.fragment_contact, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
 
@@ -61,7 +64,7 @@ public class ContactFragment extends Fragment {
         contacts = getContacts();
 
         // Set Adapter
-        adapter = new ContactAdapter(contacts);
+        adapter = new ContactAdapter(contacts, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -88,12 +91,25 @@ public class ContactFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_INSERT);
                 intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
-                view.getContext().startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
 
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestcode, int resultcode, Intent data) {
+        super.onActivityResult(requestcode, resultcode, data);
+        if (requestcode == 0) {
+            refreshFragment(this, getActivity().getSupportFragmentManager());
+        }
+    }
+
+    private void refreshFragment(Fragment fragment, FragmentManager fragmentmanager){
+        FragmentTransaction ft = fragmentmanager.beginTransaction();
+        ft.detach(fragment).attach(fragment).commit();
     }
 
     private ArrayList<Contact> getContacts() {

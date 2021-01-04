@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cs496_proj1.R;
@@ -17,12 +18,13 @@ import com.example.cs496_proj1.R;
 import java.util.ArrayList;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
-
+    private Fragment fragment;
     private ArrayList<Contact> mData;
 
     // Constructor
-    ContactAdapter(ArrayList<Contact> list) {
+    ContactAdapter(ArrayList<Contact> list, Fragment fm) {
         mData = list ;
+        fragment = fm;
     }
 
     @Override
@@ -55,18 +57,18 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                         Contact ct = mData.get(pos);
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(ContactsContract.Contacts.getLookupUri(ct.id, ct.lookup));
-                        itemView.getContext().startActivity(intent);
+                        fragment.startActivityForResult(intent, 0);
                     }
                 }
             });
 
-            // Click event for button
+            // Click event for callButton
             callButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_CALL,
                                                 Uri.parse("tel:" + numView.getText()));
-                    itemView.getContext().startActivity(intent); }
+                }
             });
         }
     }
