@@ -204,7 +204,8 @@ public class BitOperation extends AppCompatActivity {
             result = op1 ^ op2;
         }
         else if (operator == NOT) {
-            result = ~op1;
+            op2  = Integer.parseInt(operand[1], 2);
+            result = ~op2;
         }
         else if (operator == LEFT) {
             op2 = Integer.parseInt(operand[1]);

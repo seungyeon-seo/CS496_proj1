@@ -20,7 +20,9 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="70dp"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="60dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="80dp" />
 
     <EditText
         android:id="@+id/input"
@@ -108,7 +110,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:text="&gt;&gt;"
-        android:textSize="23sp"
+        android:textSize="22sp"
         tools:ignore="HardcodedText,MissingConstraints,RtlHardcoded"
         app:layout_constraintTop_toBottomOf="@+id/orOp"
         android:layout_marginTop="15dp"

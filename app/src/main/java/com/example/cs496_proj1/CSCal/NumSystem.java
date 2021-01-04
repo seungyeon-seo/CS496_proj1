@@ -4,11 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.text.Editable;
 import android.widget.Toast;
 
 import com.example.cs496_proj1.R;
@@ -83,27 +81,27 @@ public class NumSystem extends AppCompatActivity  {
 
     public void Decclicker(){
         String strdec = decimal.getText().toString();
-        int num = Integer.parseInt(strdec);
-        String dectobin = Integer.toBinaryString(num);
-        String dectohex = Integer.toHexString(num);
+        Long num = Long.parseLong(strdec);
+        String dectobin = Long.toBinaryString(num);
+        String dectohex = Long.toHexString(num);
         binary.setText(dectobin);
         hex.setText(dectohex);
     }
 
     public void Binclicker(){
         String strbin = binary.getText().toString();
-        int num = Integer.parseInt(strbin, 2);
-        String bintodec = Integer.toString(num);
-        String bintohex = Integer.toHexString(num);
+        Long num = Long.parseLong(strbin, 2);
+        String bintodec = Long.toString(num);
+        String bintohex = Long.toHexString(num);
         decimal.setText(bintodec);
         hex.setText(bintohex);
     }
 
     public void Hexclicker(){
         String strhex = hex.getText().toString();
-        int num = Integer.parseInt(strhex, 16);
-        String hextodec = Integer.toString(num);
-        String hextobin = Integer.toBinaryString(num);
+        Long num = Long.parseLong(strhex, 16);
+        String hextodec = Long.toString(num);
+        String hextobin = Long.toBinaryString(num);
         decimal.setText(hextodec);
         binary.setText(hextobin);
     }
