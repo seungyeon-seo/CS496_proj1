@@ -1,9 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CSCal.NumSystem">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_weight="1"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:shadowColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Numeral Base Conversion"
+        android:textColor="#B7463AB7"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:ignore="HardcodedText,MissingConstraints,RtlHardcoded" />
+
+    <EditText
+        android:id="@+id/decimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="Type decimal here"
+        android:layout_marginTop="65dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="180dp"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="@id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="Autofill,HardcodedText,RtlHardcoded,TextFields"
+        android:layout_marginLeft="50dp" />
+
+    <EditText
+        android:id="@+id/binary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Type binary here"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/decimal"
+        tools:ignore="Autofill,HardcodedText,RtlHardcoded,TextFields"
+        android:layout_marginLeft="160dp" />
+
+    <EditText
+        android:id="@+id/hex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Type hexadecimal here"
+        android:inputType="text"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/binary"
+        tools:ignore="Autofill,HardcodedText,RtlHardcoded,TextFields"
+        android:layout_marginLeft="160dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="76dp"
+        android:fontFamily="@font/actor"
+        android:text="Decimal Number: "
+        android:textColor="@color/purple_700"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/actor"
+        android:text="Binary Number: "
+        android:textSize="18sp"
+        android:textColor="@color/purple_700"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textView2" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/actor"
+        android:text="Hexadecimal Number: "
+        android:textSize="18sp"
+        android:textColor="@color/purple_700"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
