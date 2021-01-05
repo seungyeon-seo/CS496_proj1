@@ -18,8 +18,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -134,11 +132,6 @@ public class GalleryFragment extends Fragment {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title"+System.currentTimeMillis(), null);
         return Uri.parse(path);
-    }
-
-    public void refreshFragment(Fragment fragment, FragmentManager fragmentmanager){
-        FragmentTransaction ft = fragmentmanager.beginTransaction();
-        ft.detach(fragment).attach(fragment).commit();
     }
 
 }
