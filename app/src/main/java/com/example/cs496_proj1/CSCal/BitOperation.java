@@ -48,8 +48,8 @@ public class BitOperation extends AppCompatActivity {
         // Init variables
         operator = -1;
         operand = new String[2];
-        operand[0] = new String("0");
-        operand[1] = new String ("0");
+        operand[0] = new String("");
+        operand[1] = new String ("");
 
         // Click events
         andOp.setOnClickListener(new View.OnClickListener() {
@@ -107,8 +107,8 @@ public class BitOperation extends AppCompatActivity {
                 output.setText(null);
                 operator = -1;
                 operand = new String[2];
-                operand[0] = new String("0");
-                operand[1] = new String ("0");
+                operand[0] = new String("");
+                operand[1] = new String ("");
             }
         });
         zero.setOnClickListener(new View.OnClickListener() {
@@ -200,70 +200,116 @@ public class BitOperation extends AppCompatActivity {
 
     private void calculate () {
         Toast msg = Toast.makeText(getApplicationContext(), "이진수만 입력해주세요", Toast.LENGTH_SHORT);
-
-        if (isBinary(operand[0])){
-            int op1 = Integer.parseInt(operand[0], 2);
-
+        Toast msg2 = Toast.makeText(getApplicationContext(), "이 연산은 두 개의 피연산자가 필요합니다", Toast.LENGTH_SHORT);
+        Toast msg3 = Toast.makeText(getApplicationContext(), "적어도 하나의 피연산자가 필요합니다", Toast.LENGTH_SHORT);
+        Toast msg4 = Toast.makeText(getApplicationContext(), "NOT은 하나의 피연산자만 필요합니다", Toast.LENGTH_SHORT);
         int op2;
         int result;
 
-        if (operator == AND) {
-            if (isBinary(operand[1])){
-            op2 = Integer.parseInt(operand[1], 2);
-            result = op1 & op2;
-            }
-            else {msg.show(); return;}
-        }
-        else if (operator == OR) {
-            if (isBinary(operand[1])) {
-                op2 = Integer.parseInt(operand[1], 2);
-                result = op1 | op2;
-            }
-            else {msg.show(); return;}
-        }
-        else if (operator == XOR) {
-            if (isBinary(operand[1])) {
-                op2 = Integer.parseInt(operand[1], 2);
-                result = op1 ^ op2;
-            }
-            else {msg.show(); return;}
-        }
-        else if (operator == NOT) {
-            if (isBinary(operand[1])) {
-                op2 = Integer.parseInt(operand[1], 2);
-                result = ~op2;
-            }
-            else {msg.show(); return;}
-        }
-        else if (operator == LEFT) {
-            op2 = Integer.parseInt(operand[1]);
-            result = op1 << op2;
-        }
-        else if (operator == RIGHT){
-            op2 = Integer.parseInt(operand[1]);
-            result = op1 >> op2;
-        }
-        else {
-            // UNACCEPTED OPERATION
-            result = 0;
-        }
-        output.setText(Integer.toBinaryString(result));
+        if (operand[0].equals("")) {
+            // NOT operation - need only 1 operand
+            if (operator == NOT) {
+                    if (isBinary(operand[1])) {
+                        op2 = Integer.parseInt(operand[1], 2);
+                        result = ~op2;
+                        output.setText(Integer.toBinaryString(result));
+                        operand = null;
+                        operator = -1;
+                    } else {
+                        msg.show();
+                        return;
+                    }}
 
-        operand = null;
-        operator = -1;}
+            // Other operations
+            else {msg3.show(); return;}
+        }
 
         else {
-            msg.show();
+            if (isBinary(operand[0])) {
+                int op1 = Integer.parseInt(operand[0], 2);
+
+                if (operator == AND) {
+                    if (!operand[1].equals("")) {
+                        if (isBinary(operand[1])) {
+                            op2 = Integer.parseInt(operand[1], 2);
+                            result = op1 & op2;
+                        } else {
+                            msg.show();
+                            return;
+                        }
+                    } else {
+                        msg2.show();
+                        return;
+                    }
+                }
+
+                else if (operator == OR) {
+                    if (!operand[1].equals("")) {
+                        if (isBinary(operand[1])) {
+                            op2 = Integer.parseInt(operand[1], 2);
+                            result = op1 | op2;
+                        } else {
+                            msg.show();
+                            return;
+                        }
+                    } else {msg2.show(); return;}
+                }
+
+                else if (operator == NOT) {
+                    if (operand[1].equals("")) {
+                        result = ~op1;
+                    } else {
+                        msg4.show();
+                        return;
+                    }}
+
+                else if (operator == XOR) {
+                    if (!operand[1].equals("")) {
+                        if (isBinary(operand[1])) {
+                            op2 = Integer.parseInt(operand[1], 2);
+                            result = op1 ^ op2;
+                        } else {
+                            msg.show();
+                            return;
+                        }
+                    } else {msg2.show(); return;}
+
+                } else if (operator == LEFT) {
+                    if (!operand[1].equals("")){
+                    op2 = Integer.parseInt(operand[1]);
+                    result = op1 << op2;}
+                    else {msg2.show(); return;}
+                }
+                else if (operator == RIGHT) {
+                    if (!operand[1].equals("")) {
+                        op2 = Integer.parseInt(operand[1]);
+                        result = op1 >> op2;
+                    } else {
+                        msg2.show();
+                        return;
+                    }
+                }   else {
+                    // UNACCEPTED OPERATION
+                    result = 0;
+                }
+                output.setText(Integer.toBinaryString(result));
+                operand = null;
+                operator = -1;
+            }
+            // non-binary input
+            else {
+                msg.show(); return;
+            }
         }
     }
 
     private void setOperand (String num) {
         if (operator != -1) {
-            if (operand[1].equals("0")) operand[1] = num;
+            if (operand[1].equals("")) operand[1] = num;
             else operand[1] += num;
         }
         else {
-            if (operand[0].equals("0")) operand[0] = num;
+            if (operand[0].equals("")) operand[0] = num;
             else operand[0] += num;
         }
     }
