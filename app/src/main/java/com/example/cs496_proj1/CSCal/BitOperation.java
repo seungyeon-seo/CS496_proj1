@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cs496_proj1.R;
+
+import java.util.ArrayList;
 
 public class BitOperation extends AppCompatActivity {
     private Button andOp, orOp, xorOp, notOp, leftOp, rightOp, equalOp, clear;
@@ -15,7 +18,7 @@ public class BitOperation extends AppCompatActivity {
     private Button zero, one, two, three, four, five, six, seven, eight, nine;
     private EditText input, output;
     private String[] operand;
-    private int operator;
+    private ArrayList<Integer> operator = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,52 +48,59 @@ public class BitOperation extends AppCompatActivity {
         output = (EditText) findViewById(R.id.output);
 
         // Init variables
-        operator = -1;
+        //operator.add(-1);
+        operator.clear();
         operand = new String[2];
-        operand[0] = new String("0");
-        operand[1] = new String ("0");
+        operand[0] = new String("");
+        operand[1] = new String ("");
 
         // Click events
         andOp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickButton(andOp.getText());
-                operator = AND;
+                //operator = AND;
+                operator.add(AND);
             }
         });
         orOp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickButton(orOp.getText());
-                operator = OR;
+                //operator = OR;
+                operator.add(OR);
             }
         });
         xorOp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickButton(xorOp.getText());
-                operator = XOR;
+                //operator = XOR;
+                operator.add(XOR);
             }
         });
         notOp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickButton(notOp.getText());
-                operator = NOT;
+                //operator = NOT;
+                operator.add(NOT);
             }
         });
         leftOp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickButton(leftOp.getText());
-                operator = LEFT;
+                //operator = LEFT;
+                operator.add(LEFT);
             }
         });
         rightOp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickButton(rightOp.getText());
-                operator = RIGHT;
+                //operator = RIGHT;
+                operator.add(RIGHT);
             }
         });
         equalOp.setOnClickListener(new View.OnClickListener() {
@@ -104,10 +114,11 @@ public class BitOperation extends AppCompatActivity {
             public void onClick(View v) {
                 input.setText(null);
                 output.setText(null);
-                operator = -1;
+                //operator = -1;
+                operator.clear();
                 operand = new String[2];
-                operand[0] = new String("0");
-                operand[1] = new String ("0");
+                operand[0] = new String("");
+                operand[1] = new String ("");
             }
         });
         zero.setOnClickListener(new View.OnClickListener() {
@@ -186,52 +197,136 @@ public class BitOperation extends AppCompatActivity {
         input.setText(input.getText().append(button));
     }
 
+    public boolean isBinary(String bin){
+        int num = Integer.parseInt(bin);
+        while (num != 0){
+            if (num % 10 > 1){
+                return false;
+            }
+            num = num / 10;
+        }
+        return true;
+    }
+
     private void calculate () {
-        int op1 = Integer.parseInt(operand[0], 2);
+        Toast msg = Toast.makeText(getApplicationContext(), "이진수만 입력해주세요", Toast.LENGTH_SHORT);
+        Toast msg2 = Toast.makeText(getApplicationContext(), "이 연산은 두 개의 피연산자가 필요합니다", Toast.LENGTH_SHORT);
+        Toast msg3 = Toast.makeText(getApplicationContext(), "적어도 하나의 피연산자가 필요합니다", Toast.LENGTH_SHORT);
+        Toast msg4 = Toast.makeText(getApplicationContext(), "NOT은 하나의 피연산자만 필요합니다", Toast.LENGTH_SHORT);
+        Toast msg5 = Toast.makeText(getApplicationContext(), "연산자 한 개만 사용해주세요", Toast.LENGTH_SHORT);
+
         int op2;
         int result;
 
-        if (operator == AND) {
-            op2 = Integer.parseInt(operand[1], 2);
-            result = op1 & op2;
-        }
-        else if (operator == OR) {
-            op2  = Integer.parseInt(operand[1], 2);
-            result = op1 | op2;
-        }
-        else if (operator == XOR) {
-            op2  = Integer.parseInt(operand[1], 2);
-            result = op1 ^ op2;
-        }
-        else if (operator == NOT) {
-            op2  = Integer.parseInt(operand[1], 2);
-            result = ~op2;
-        }
-        else if (operator == LEFT) {
-            op2 = Integer.parseInt(operand[1]);
-            result = op1 << op2;
-        }
-        else if (operator == RIGHT){
-            op2 = Integer.parseInt(operand[1]);
-            result = op1 >> op2;
-        }
-        else {
-            // UNACCEPTED OPERATION
-            result = 0;
-        }
-        output.setText(Integer.toBinaryString(result));
+        if (operator.size()==1){
+            if (operand[0].equals("")) {
+                // NOT operation - need only 1 operand
+                if (operator.get(0) == NOT) {
+                        if (isBinary(operand[1])) {
+                            op2 = Integer.parseInt(operand[1], 2);
+                            result = ~op2;
+                            output.setText(Integer.toBinaryString(result));
+                            operand = null;
+                            operator.clear();
+                        } else {
+                            msg.show();
+                            return;
+                        }}
 
-        operand = null;
-        operator = -1;
+                // Other operations
+                else {msg3.show(); return;}
+            }
+
+            else {
+                if (isBinary(operand[0])) {
+                    int op1 = Integer.parseInt(operand[0], 2);
+
+                    if (operator.get(0) == AND) {
+                        if (!operand[1].equals("")) {
+                            if (isBinary(operand[1])) {
+                                op2 = Integer.parseInt(operand[1], 2);
+                                result = op1 & op2;
+                            } else {
+                                msg.show();
+                                return;
+                            }
+                        } else {
+                            msg2.show();
+                            return;
+                        }
+                    }
+
+                    else if (operator.get(0) == OR) {
+                        if (!operand[1].equals("")) {
+                            if (isBinary(operand[1])) {
+                                op2 = Integer.parseInt(operand[1], 2);
+                                result = op1 | op2;
+                            } else {
+                                msg.show();
+                                return;
+                            }
+                        } else {msg2.show(); return;}
+                    }
+
+                    else if (operator.get(0) == NOT) {
+                        if (operand[1].equals("")) {
+                            result = ~op1;
+                        } else {
+                            msg4.show();
+                            return;
+                        }}
+
+                    else if (operator.get(0) == XOR) {
+                        if (!operand[1].equals("")) {
+                            if (isBinary(operand[1])) {
+                                op2 = Integer.parseInt(operand[1], 2);
+                                result = op1 ^ op2;
+                            } else {
+                                msg.show();
+                                return;
+                            }
+                        } else {msg2.show(); return;}
+
+                    } else if (operator.get(0) == LEFT) {
+                        if (!operand[1].equals("")){
+                        op2 = Integer.parseInt(operand[1]);
+                        result = op1 << op2;}
+                        else {msg2.show(); return;}
+                    }
+                    else if (operator.get(0) == RIGHT) {
+                        if (!operand[1].equals("")) {
+                            op2 = Integer.parseInt(operand[1]);
+                            result = op1 >> op2;
+                        } else {
+                            msg2.show();
+                            return;
+                        }
+                    }   else {
+                        // UNACCEPTED OPERATION
+                        result = 0;
+                    }
+                    output.setText(Integer.toBinaryString(result));
+                    operand = null;
+                    operator.clear();
+                }
+                // non-binary input
+                else {
+                    msg.show(); return;
+                }
+            }
+        }
+        else{
+            msg5.show(); return;
+        }
     }
 
     private void setOperand (String num) {
-        if (operator != -1) {
-            if (operand[1].equals("0")) operand[1] = num;
+        if (operator.size() != 0) {
+            if (operand[1].equals("")) operand[1] = num;
             else operand[1] += num;
         }
         else {
-            if (operand[0].equals("0")) operand[0] = num;
+            if (operand[0].equals("")) operand[0] = num;
             else operand[0] += num;
         }
     }
