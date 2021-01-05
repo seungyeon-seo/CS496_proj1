@@ -22,14 +22,14 @@
 
     <ImageButton
         android:id="@+id/addButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="bottom|left"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="635dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/purple_add"
+        android:src="@drawable/addbutton"
         android:scaleType="fitCenter"
         android:padding="0sp"
         android:background="#00000000"

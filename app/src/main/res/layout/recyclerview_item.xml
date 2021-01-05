@@ -23,7 +23,9 @@
         android:gravity="center"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:fontFamily="@font/nanumsqure_r"
         app:layout_constraintStart_toEndOf="@+id/imageView"
+        android:paddingTop="15dp"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="16dp" />
 
@@ -34,6 +36,8 @@
         android:textSize="18dp"
         android:layout_marginLeft="10dp"
         app:layout_constraintStart_toEndOf="@+id/nameTextView"
+        android:paddingTop="15dp"
+        android:fontFamily="@font/nanumsqure_r"
         android:gravity="center_vertical"
         tools:ignore="MissingConstraints" />
 
@@ -41,14 +45,15 @@
         android:id="@+id/callButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="#77B2C5"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toEndOf="@+id/numTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="5dp"
         app:srcCompat="@android:drawable/stat_sys_phone_call"
-        android:scaleType="fitXY"
-        android:padding="1sp"
-        android:background="#BA55D3"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="6dp" />
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

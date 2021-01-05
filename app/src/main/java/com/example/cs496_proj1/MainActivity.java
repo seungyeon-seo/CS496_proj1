@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity
         // TabLayout Initialization
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
+
         // ViewPager Initialization
         viewPager = (ViewPager2) findViewById(R.id.pager);
         fgAdapter = new TabPagerAdapter(this, 3);
