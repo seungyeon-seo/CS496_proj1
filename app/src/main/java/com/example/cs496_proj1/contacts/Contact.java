@@ -1,14 +1,17 @@
 package com.example.cs496_proj1.contacts;
 
+import android.net.Uri;
+
 public class Contact {
     String phone, fullName, lookup;
-    long thumnailId, personId;
+    long personId;
+    Uri image = null;
     int id;
 
-    public Contact(String ph, String fn, long tnid, long pid, String key) {
+    public Contact(String ph, String fn, String bytes, long pid, String key) {
         phone = ph;
         fullName = fn;
-        thumnailId = tnid;
+        if (bytes != null)  image = Uri.parse(bytes);
         personId = pid;
         lookup = key;
     }

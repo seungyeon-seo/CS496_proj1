@@ -108,7 +108,7 @@ public class ContactFragment extends Fragment {
         String[] projection = new String[] {
                 ContactsContract.CommonDataKinds.Phone.NUMBER,
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                ContactsContract.CommonDataKinds.Phone.PHOTO_ID,
+                ContactsContract.CommonDataKinds.Photo.PHOTO_URI,
                 ContactsContract.CommonDataKinds.Phone._ID,
                 ContactsContract.CommonDataKinds.Phone.LOOKUP_KEY
         };
@@ -125,11 +125,11 @@ public class ContactFragment extends Fragment {
             do {
                 String phone = cursor.getString(0);
                 String fullName = cursor.getString(1);
-                long photo_id = cursor.getLong(2);
+                String image = cursor.getString(2);
                 long person = cursor.getLong(3);
                 String lookup = cursor.getString(4);
 
-                Contact contact = new Contact(phone, fullName, photo_id, person, lookup);
+                Contact contact = new Contact(phone, fullName, image, person, lookup);
 
                 if (contact.isStartWith("01")) {
                     hasList.add(contact);
