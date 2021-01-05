@@ -1,6 +1,5 @@
 package com.example.cs496_proj1.contacts;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -14,8 +13,6 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -95,36 +92,14 @@ public class ContactFragment extends Fragment {
                 startActivityForResult(intent, 0);
             }
         });
-
-
         return view;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         MainActivity main = (MainActivity) getActivity();
-        main.setViewPager();
-    }
-
-    /*
-    public Fragment activityResult(int requestcode, int resultcode, Intent data) {
-        super.onActivityResult(requestcode, resultcode, data);
-        if (requestcode == 0) {
-            refreshFragment(this, getActivity().getSupportFragmentManager());
-            adapter.notifyDataSetChanged();
-        }
-        return this;
-    }
-    */
-
-
-    private void refreshFragment(Fragment fragment, FragmentManager fragmentmanager){
-        FragmentTransaction ft = fragmentmanager.beginTransaction();
-        ft.detach(fragment).attach(fragment).commit();
-        Activity main = getActivity();
-        //viewPager.setAdapter(fgAdapter);
+        main.setViewPager(0);
     }
 
     private ArrayList<Contact> getContacts() {

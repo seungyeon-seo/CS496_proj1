@@ -82,22 +82,14 @@ public class MainActivity extends AppCompatActivity
         onRequestPermissionsResult(PERMISSIONS_REQUEST_CODE, REQUIRED_PERMISSIONS, grandResults);
     }
 
-    public void setViewPager () {
+    public void setViewPager (int pos) {
         viewPager.setAdapter(fgAdapter);
-    }
-
-    public void notifyViewPager() {
-        ///viewPager.getAdapter().notifyDataSetChanged();
-        fgAdapter.notifyDataSetChanged();
-        viewPager.setAdapter(fgAdapter);
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(pos);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        //viewPager.setAdapter(fgAdapter);
     }
 
     public void GetPermission() {

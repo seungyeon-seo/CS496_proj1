@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.example.cs496_proj1.MainActivity;
 import com.example.cs496_proj1.R;
 
 import java.io.ByteArrayOutputStream;
@@ -121,29 +122,12 @@ public class GalleryFragment extends Fragment {
                 Bitmap bitmap = (Bitmap) bundle.get("data");
                 Uri ChangedUri = BitmapToUri(this.requireContext(), bitmap);
                 FileList.add(new ImageUnit(ChangedUri));
+
             }
-            refreshFragment(this, getActivity().getSupportFragmentManager());
-            adapter.notifyDataSetChanged();
-            //MainActivity main = (MainActivity) getActivity();
-            //main.notifyViewPager();
+            MainActivity main = (MainActivity) getActivity();
+            main.setViewPager(1);
         }
     }
-
-    /*
-    public Fragment activityResult(int requestcode, int resultcode, Intent data){
-        super.onActivityResult(requestcode, resultcode, data);
-        if (resultcode == Activity.RESULT_OK){
-            if (requestcode == CAPTURE_PHOTO){
-                Bundle bundle = data.getExtras();
-                Bitmap bitmap = (Bitmap) bundle.get("data");
-                Uri ChangedUri = BitmapToUri(this.requireContext(), bitmap);
-                FileList.add(new ImageUnit(ChangedUri));
-            }
-            refreshFragment(this, getActivity().getSupportFragmentManager());
-            adapter.notifyDataSetChanged();
-        }
-        return this;
-    }*/
 
     public Uri BitmapToUri(Context context, Bitmap bitmap){
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
