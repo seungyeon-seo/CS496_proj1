@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -186,26 +187,53 @@ public class BitOperation extends AppCompatActivity {
         input.setText(input.getText().append(button));
     }
 
+    public boolean isBinary(String bin){
+        int num = Integer.parseInt(bin);
+        while (num != 0){
+            if (num % 10 > 1){
+                return false;
+            }
+            num = num / 10;
+        }
+        return true;
+    }
+
     private void calculate () {
-        int op1 = Integer.parseInt(operand[0], 2);
+        Toast msg = Toast.makeText(getApplicationContext(), "이진수만 입력해주세요", Toast.LENGTH_SHORT);
+
+        if (isBinary(operand[0])){
+            int op1 = Integer.parseInt(operand[0], 2);
+
         int op2;
         int result;
 
         if (operator == AND) {
+            if (isBinary(operand[1])){
             op2 = Integer.parseInt(operand[1], 2);
             result = op1 & op2;
+            }
+            else {msg.show(); return;}
         }
         else if (operator == OR) {
-            op2  = Integer.parseInt(operand[1], 2);
-            result = op1 | op2;
+            if (isBinary(operand[1])) {
+                op2 = Integer.parseInt(operand[1], 2);
+                result = op1 | op2;
+            }
+            else {msg.show(); return;}
         }
         else if (operator == XOR) {
-            op2  = Integer.parseInt(operand[1], 2);
-            result = op1 ^ op2;
+            if (isBinary(operand[1])) {
+                op2 = Integer.parseInt(operand[1], 2);
+                result = op1 ^ op2;
+            }
+            else {msg.show(); return;}
         }
         else if (operator == NOT) {
-            op2  = Integer.parseInt(operand[1], 2);
-            result = ~op2;
+            if (isBinary(operand[1])) {
+                op2 = Integer.parseInt(operand[1], 2);
+                result = ~op2;
+            }
+            else {msg.show(); return;}
         }
         else if (operator == LEFT) {
             op2 = Integer.parseInt(operand[1]);
@@ -222,7 +250,11 @@ public class BitOperation extends AppCompatActivity {
         output.setText(Integer.toBinaryString(result));
 
         operand = null;
-        operator = -1;
+        operator = -1;}
+
+        else {
+            msg.show();
+        }
     }
 
     private void setOperand (String num) {
