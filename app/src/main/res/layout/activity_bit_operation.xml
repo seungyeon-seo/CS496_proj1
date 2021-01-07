@@ -295,7 +295,7 @@
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toEndOf="@+id/eight"
         android:layout_marginLeft="15dp"
-        android:backgroundTint="#77B2C5"/>
+        android:backgroundTint="#77B2C5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
